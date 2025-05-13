@@ -1,0 +1,7 @@
+[project]
+name = "Clothica_Pattern_Generator"
+version = "0.0.1"
+description = "auto generate mesh from various cloth patterns."
+requires-python = ">=3.13"
+
+dependencies = []
