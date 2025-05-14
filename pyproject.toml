@@ -11,4 +11,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "fake-bpy-module-4-2>=20250130",
+    "ruff>=0.11.9",
 ]
