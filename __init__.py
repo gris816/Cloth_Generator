@@ -34,10 +34,25 @@ class CLOTHICA_OT_generate_pattern(Operator):
     def execute(self, context):
         props = context.scene.clothica_pattern_props
 
-        verts = [
-            (-0.5, -0.5, 0), (0.5, -0.5, 0.0),
-            (-0.5, 0.5, 0.0), (0.5, 0.5, 0.0)
-        ]
+        pattern_shapes = {
+            'TOPS': [(-0.2475, 0.185, 0), (-0.2475, 0.105, 0), (-0.2475, -0.025, 0), (-0.2475, -0.185, 0),
+                    (-0.155, 0.105, 0),
+                    (-0.0645, 0.185, 0),(-0.0645, 0.105, 0),(-0.0645, 0.035, 0),(-0.0645, -0.025, 0),
+                    (-0.0075, -0.025, 0),(-0.0075, -0.185, 0),
+                    (0.0495, 0.035, 0),(0.0495, -0.025, 0),
+                    (0.07, 0.035, 0),
+                    (0.0765, 0.232, 0),(0.0765, -0.025, 0),
+                    (0.2475, 0.232, 0),(0.2475, -0.025, 0),(0.2475, -0.185, 0)
+                    ],
+            # ここからは仮の座標
+            'SLEEVE': [(-0.3, -0.2, 0), (0.3, -0.2, 0), (-0.2, 0.6, 0), (0.2, 0.6, 0)],
+            'SKIRT': [(-0.4, -0.6, 0), (0.4, -0.6, 0), (-0.2, 0.6, 0), (0.2, 0.6, 0)],
+            'PANTS_STRAIGHT': [(-0.3, -0.8, 0), (0.3, -0.8, 0), (-0.3, 0.8, 0), (0.3, 0.8, 0)],
+            'PANTS_SLIM': [(-0.2, -0.8, 0), (0.2, -0.8, 0), (-0.1, 0.8, 0), (0.1, 0.8, 0)],
+        }
+        
+        
+        verts = pattern_shapes.get(props.pattern_type, pattern_shapes['TOPS'])
 
         mesh = bpy.data.meshes.new("mesh")
         obj  = bpy.data.objects.new(f"{props.pattern_type}_Pattern", mesh)
@@ -45,8 +60,28 @@ class CLOTHICA_OT_generate_pattern(Operator):
 
         bm = bmesh.new()
         bm_verts = [bm.verts.new(v) for v in verts]
-        bm.faces.new([bm_verts[0], bm_verts[2], bm_verts[1]])
-        bm.faces.new([bm_verts[1], bm_verts[2], bm_verts[3]])
+
+        if props.pattern_type == 'TOPS':
+            # ポリゴンを手動で定義
+            faces = [
+                (0, 1, 4, 6, 5), (1, 2, 8, 7, 6, 4), (2, 3, 10, 9, 8),
+                (9, 10, 18, 17, 15, 12), (14, 15, 17, 16),
+            ]
+            for idxs in faces:
+                try:
+                    bm.faces.new([bm_verts[i] for i in idxs])
+                except:
+                    continue
+            edges_only = [(7, 11), (11, 13),(11, 12),]
+            for e in edges_only:
+                try:
+                    bm.edges.new([bm_verts[e[0]], bm_verts[e[1]]])
+                except:
+                    continue
+
+        else:
+            bm.faces.new([bm_verts[0], bm_verts[2], bm_verts[1]])
+            bm.faces.new([bm_verts[1], bm_verts[2], bm_verts[3]])
 
         bm.to_mesh(mesh)
         bm.free()
@@ -92,4 +127,3 @@ def unregister():
 
 if __name__ == "__main__":
     register()
-
