@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "hverlin.mise-vscode"
+        "ms-python.python",
+        "hverlin.mise-vscode",
+        "JacquesLucke.blender-development",
     ]
 }
