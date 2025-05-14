@@ -7,3 +7,7 @@ _.python.venv = { path = ".venv", create = true, python = "3.11"}
 [tasks.setup]
 description = "環境構築用のセットアップコマンド"
 run = "uv sync"
+
+[tasks.format]
+description = "ソースコードのフォーマット"
+run = "ruff format"
