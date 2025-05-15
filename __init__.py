@@ -9,22 +9,9 @@ bl_info = {
 
 import bpy
 import bmesh
-from bpy.props import EnumProperty
+# from bpy.props import EnumProperty
 from bpy.types import Operator, Panel, PropertyGroup
-
-# プロパティ格納用
-class CLOTHICA_PatternProperties(PropertyGroup):
-    pattern_type: EnumProperty(
-        name="Pattern Type",
-        items=[
-            ('TOPS', "TOPS", "Generate a top pattern"),
-            ('SLEEVE', "SLEEVE", "Generate a sleeve pattern"),
-            ('SKIRT', "TIGHT SKIRT", "Generate a tight skirt pattern"),
-            ('PANTS_STRAIGHT', "STRAIGHT PANTS", "Generate a straight pants pattern"),
-            ('PANTS_SLIM', "SLIM PANTS", "Generate a slim pants pattern"),
-        ],
-        default='TOPS'
-    ) # type: ignore
+from bpy.props import StringProperty
 
 # オブジェクト生成ロジック
 class CLOTHICA_OT_generate_pattern(Operator):
@@ -98,17 +85,14 @@ class CLOTHICA_PT_pattern_panel(Panel):
 
     def draw(self, context):
         layout = self.layout
-        props = getattr(context.scene, "clothica_pattern_props", None)
-        if not props:
-            layout.label(text="(Pattern properties not initialized)")
-            return
-        layout.label(text="Generate Pattern")
-        layout.prop(props, "pattern_type")
-        layout.operator("clothica.generate_pattern")
+        layout.label(text="Select Pattern Type:")
+        for label in ['TOP', 'SLEEVE', 'SKIRT', 'PANTS_STRAIGHT', 'PANTS_SLIM']:
+            op = layout.operator("clothica.generate_pattern", text=label.replace("_", " ").title())
+            op.pattern_type = label
+
 
 # 登録・解除
 classes = [
-    CLOTHICA_PatternProperties,
     CLOTHICA_OT_generate_pattern,
     CLOTHICA_PT_pattern_panel,
 ]
