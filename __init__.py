@@ -115,14 +115,10 @@ classes = [
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
-    if hasattr(bpy.types.Scene, "clothica_pattern_props"):
-        del bpy.types.Scene.clothica_pattern_props
-    bpy.types.Scene.clothica_pattern_props = bpy.props.PointerProperty(type=CLOTHICA_PatternProperties)
 
 def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
-    del bpy.types.Scene.clothica_pattern_props
 
 if __name__ == "__main__":
     register()
