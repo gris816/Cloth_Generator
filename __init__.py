@@ -9,8 +9,7 @@ bl_info = {
 
 import bpy
 import bmesh
-# from bpy.props import EnumProperty
-from bpy.types import Operator, Panel, PropertyGroup
+from bpy.types import Operator, Panel
 from bpy.props import StringProperty
 
 # メッシュ形状の定義関数
