@@ -3,7 +3,7 @@ bl_info = {
     "blender": (4, 2, 0),
     "category": "3D View",
     "author": "Your Name",
-    "version": (0, 1),
+    "version": (1, 0, 0),
     "description": "Generate basic garment pattern pieces (tops, skirts, sleeves, etc.) as editable mesh objects."
 }
 
