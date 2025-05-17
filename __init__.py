@@ -129,8 +129,8 @@ class CLOTHICA_PT_pattern_panel(Panel):
     def draw(self, context):
         layout = self.layout
         layout.label(text="Select Pattern Type:")
-        # 日本語UI直す
-        for label in ['TOP', 'SLEEVE', 'SKIRT', 'PANTS_STRAIGHT', 'PANTS_SLIM']:
+        
+        for label in ['TOPS', 'SLEEVE', 'SKIRT', 'PANTS_STRAIGHT', 'PANTS_SLIM']:
             op = layout.operator("clothica.generate_pattern", text=label.replace("_", " ").title())
             op.pattern_type = label
 
