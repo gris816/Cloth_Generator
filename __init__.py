@@ -2,7 +2,7 @@ bl_info = {
     "name": "Clothica Pattern Generator",
     "blender": (4, 2, 0),
     "category": "3D View",
-    "author": "Your Name",
+    "author": "Miyashitaa",
     "version": (1, 0, 0),
     "description": "Generate basic garment pattern pieces (tops, skirts, sleeves, etc.) as editable mesh objects."
 }
@@ -85,7 +85,7 @@ def get_pattern_shape(pattern_type):
                   (0.15839, 0.30062, 0),
                   (0.2425, 0.295, 0), (0.2425, 0.2075, 0), (0.2425, 0.12, 0), (0.2425, -0.3, 0)
                   ],
-        'PANTS_STRAIGHT': [ (-0.09731, 0.48172, 0), (-0.10098, 0.47, 0), 
+        'PANTS_STRAIGHT': [(-0.09731, 0.48172, 0), (-0.10098, 0.47, 0), 
                            (-0.11715, 0.39633, 0), (-0.12468, 0.32726, 0), 
                            (-0.12625, 0.29, 0), #HL
                            (-0.12625, 0.22, 0), #股ライン
@@ -153,7 +153,7 @@ def get_pattern_shape(pattern_type):
                        (0.46572, 0.48996, 0), (0.45649, 0.49113, 0), (0.4471, 0.49232, 0), 
                        (0.444, 0.39183, 0), #ダーツ頂点
                        (0.1867, 0.21789, 0), (0.29546, 0.21789, 0), (0.38741, 0.21789, 0), 
-                       (0.38741, -0.056404, 0)],
+                       (0.38741, -0.056404, 0)]
         }
     return shapes.get(pattern_type, [])
 
@@ -161,7 +161,7 @@ def get_pattern_shape(pattern_type):
 def get_faces_and_edges(pattern_type):
     mapping = {
         'TOPS': {
-           'faces': [(0, 61, 60, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1),
+           'faces': [ (0, 61, 60, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1),
                       (60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 18),
                       (18, 19, 20, 21, 22, 23, 24, 25, 26),(27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 26),
                       (18, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41)],
@@ -219,7 +219,7 @@ def get_faces_and_edges(pattern_type):
             'edges': [(21, 20), (20, 19), (20, 22), 
                       (48, 47), (47, 46), (47, 48), 
                       (50, 33), (50, 34)]
-        },
+        }
     }
     return mapping.get(pattern_type, {'faces': [], 'edges': []})
 
